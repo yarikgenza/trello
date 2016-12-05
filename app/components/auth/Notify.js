@@ -11,7 +11,7 @@ export default class Notify extends Component {
       return(
           <div className="notifyWrap">
             <Alert bsStyle="success">
-              <p>Successful registered! Now you can log in.</p>
+              <p>Successful registered! Now you can log in</p>
             </Alert>
           </div>
       )

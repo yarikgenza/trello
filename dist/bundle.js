@@ -45802,7 +45802,7 @@
 	            _react2.default.createElement(
 	              'p',
 	              null,
-	              'Successful registered! Now you can log in.'
+	              'Successful registered! Now you can log in'
 	            )
 	          )
 	        );
