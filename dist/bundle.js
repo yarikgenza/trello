@@ -45847,6 +45847,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Header = __webpack_require__(484);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _rowRender = __webpack_require__(494);
+
+	var _rowRender2 = _interopRequireDefault(_rowRender);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45861,22 +45869,34 @@
 	  function Dashboard() {
 	    _classCallCheck(this, Dashboard);
 
-	    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this));
+
+	    _this.state = {
+	      token: ''
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Dashboard, [{
-	    key: 'getToken',
-	    value: function getToken() {
-	      return localStorage.getItem('token');
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var token = localStorage.getItem('token');
+	      this.setState({
+	        token: token
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        ' Its a main doshboard and ',
-	        this.getToken()
+	        { id: 'dashboardContainer' },
+	        _react2.default.createElement(_Header2.default, null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'main' },
+	          _react2.default.createElement('rowRender', { token: this.state.token })
+	        )
 	      );
 	    }
 	  }]);
@@ -45921,7 +45941,7 @@
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500);", ""]);
 
 	// module
-	exports.push([module.id, "body {\n  color: white;\n  background-color: #1e2633;\n  font-size: 'ubuntu', sans-serif;\n}\n.header {\n  width: 99.8vw;\n  text-align: center;\n  border: 1px solid royalblue;\n  border-radius: 3px;\n  background-color: royalblue;\n}\n.header h1 {\n  margin-top: 10px;\n}\n.formContainer {\n  margin-top: 12vh;\n}\n.notifyWrap {\n  width: 40vw;\n  margin: 0 auto;\n  text-align: center;\n}\n.panel-login {\n  border-color: #ccc;\n  -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);\n  -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);\n  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);\n}\n.panel-login > .panel-heading {\n  color: #00415d;\n  background-color: #fff;\n  border-color: #fff;\n  text-align: center;\n}\n.panel-login > .panel-heading a {\n  text-decoration: none;\n  color: #666;\n  font-weight: bold;\n  font-size: 15px;\n  -webkit-transition: all 0.1s linear;\n  -moz-transition: all 0.1s linear;\n  transition: all 0.1s linear;\n}\n.panel-login > .panel-heading a.active {\n  color: #029f5b;\n  font-size: 18px;\n}\n.panel-login > .panel-heading hr {\n  margin-top: 10px;\n  margin-bottom: 0px;\n  clear: both;\n  border: 0;\n  height: 1px;\n  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n}\n.panel-login input[type=\"text\"],\n.panel-login input[type=\"email\"],\n.panel-login input[type=\"password\"] {\n  height: 45px;\n  border: 1px solid #ddd;\n  font-size: 16px;\n  -webkit-transition: all 0.1s linear;\n  -moz-transition: all 0.1s linear;\n  transition: all 0.1s linear;\n}\n.panel-login input:hover,\n.panel-login input:focus {\n  outline: none;\n  -webkit-box-shadow: none;\n  -moz-box-shadow: none;\n  box-shadow: none;\n  border-color: #ccc;\n}\n.btn-login {\n  background-color: #59B2E0;\n  outline: none;\n  color: #fff;\n  font-size: 14px;\n  height: auto;\n  font-weight: normal;\n  padding: 14px 0;\n  text-transform: uppercase;\n  border-color: #59B2E6;\n}\n.btn-login:hover,\n.btn-login:focus {\n  color: #fff;\n  background-color: #53A3CD;\n  border-color: #53A3CD;\n}\n.forgot-password {\n  text-decoration: underline;\n  color: #888;\n}\n.forgot-password:hover,\n.forgot-password:focus {\n  text-decoration: underline;\n  color: #666;\n}\n.btn-register {\n  background-color: #1CB94E;\n  outline: none;\n  color: #fff;\n  font-size: 14px;\n  height: auto;\n  font-weight: normal;\n  padding: 14px 0;\n  text-transform: uppercase;\n  border-color: #1CB94A;\n}\n.btn-register:hover,\n.btn-register:focus {\n  color: #fff;\n  background-color: #1CA347;\n  border-color: #1CA347;\n}\n", ""]);
+	exports.push([module.id, "body {\n  color: white;\n  background-color: #1e2633;\n  font-size: 'ubuntu', sans-serif;\n}\n.main {\n  width: 100vw;\n  float: left;\n}\n.header {\n  width: 99.9vw;\n  text-align: center;\n  border: 1px solid royalblue;\n  border-radius: 3px;\n  background-color: royalblue;\n}\n.header h1 {\n  margin-top: 10px;\n}\n.formContainer {\n  margin-top: 12vh;\n}\n.notifyWrap {\n  width: 40vw;\n  margin: 0 auto;\n  text-align: center;\n}\n.panel-login {\n  border-color: #ccc;\n  -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);\n  -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);\n  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);\n}\n.panel-login > .panel-heading {\n  color: #00415d;\n  background-color: #fff;\n  border-color: #fff;\n  text-align: center;\n}\n.panel-login > .panel-heading a {\n  text-decoration: none;\n  color: #666;\n  font-weight: bold;\n  font-size: 15px;\n  -webkit-transition: all 0.1s linear;\n  -moz-transition: all 0.1s linear;\n  transition: all 0.1s linear;\n}\n.panel-login > .panel-heading a.active {\n  color: #029f5b;\n  font-size: 18px;\n}\n.panel-login > .panel-heading hr {\n  margin-top: 10px;\n  margin-bottom: 0px;\n  clear: both;\n  border: 0;\n  height: 1px;\n  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));\n}\n.panel-login input[type=\"text\"],\n.panel-login input[type=\"email\"],\n.panel-login input[type=\"password\"] {\n  height: 45px;\n  border: 1px solid #ddd;\n  font-size: 16px;\n  -webkit-transition: all 0.1s linear;\n  -moz-transition: all 0.1s linear;\n  transition: all 0.1s linear;\n}\n.panel-login input:hover,\n.panel-login input:focus {\n  outline: none;\n  -webkit-box-shadow: none;\n  -moz-box-shadow: none;\n  box-shadow: none;\n  border-color: #ccc;\n}\n.btn-login {\n  background-color: #59B2E0;\n  outline: none;\n  color: #fff;\n  font-size: 14px;\n  height: auto;\n  font-weight: normal;\n  padding: 14px 0;\n  text-transform: uppercase;\n  border-color: #59B2E6;\n}\n.btn-login:hover,\n.btn-login:focus {\n  color: #fff;\n  background-color: #53A3CD;\n  border-color: #53A3CD;\n}\n.forgot-password {\n  text-decoration: underline;\n  color: #888;\n}\n.forgot-password:hover,\n.forgot-password:focus {\n  text-decoration: underline;\n  color: #666;\n}\n.btn-register {\n  background-color: #1CB94E;\n  outline: none;\n  color: #fff;\n  font-size: 14px;\n  height: auto;\n  font-weight: normal;\n  padding: 14px 0;\n  text-transform: uppercase;\n  border-color: #1CB94A;\n}\n.btn-register:hover,\n.btn-register:focus {\n  color: #fff;\n  background-color: #1CA347;\n  border-color: #1CA347;\n}\n", ""]);
 
 	// exports
 
@@ -46233,6 +46253,104 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Row = __webpack_require__(495);
+
+	var _Row2 = _interopRequireDefault(_Row);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var rowRender = function (_Component) {
+	  _inherits(rowRender, _Component);
+
+	  function rowRender() {
+	    _classCallCheck(this, rowRender);
+
+	    return _possibleConstructorReturn(this, (rowRender.__proto__ || Object.getPrototypeOf(rowRender)).apply(this, arguments));
+	  }
+
+	  _createClass(rowRender, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_Row2.default, null);
+	    }
+	  }]);
+
+	  return rowRender;
+	}(_react.Component);
+
+	exports.default = rowRender;
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Row = function (_Component) {
+	  _inherits(Row, _Component);
+
+	  function Row() {
+	    _classCallCheck(this, Row);
+
+	    return _possibleConstructorReturn(this, (Row.__proto__ || Object.getPrototypeOf(Row)).apply(this, arguments));
+	  }
+
+	  _createClass(Row, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'This is a row!'
+	      );
+	    }
+	  }]);
+
+	  return Row;
+	}(_react.Component);
+
+	exports.default = Row;
 
 /***/ }
 /******/ ]);
