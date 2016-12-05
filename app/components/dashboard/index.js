@@ -1,13 +1,13 @@
 import React, {Component}from 'react';
 import Header from '../layout/Header';
-import rowRender from './rowRender';
+import RowRender from './rowRender';
 
 export default class Dashboard extends Component {
 
   constructor() {
     super();
     this.state = {
-      token: ''
+      token: 'hjwdjhdjwhd'
     }
   }
 
@@ -23,7 +23,7 @@ export default class Dashboard extends Component {
       <div id="dashboardContainer">
         <Header />
         <div className="main">
-          <rowRender token={this.state.token} />
+          <RowRender token={this.state.token} />
         </div>
       </div>
     )

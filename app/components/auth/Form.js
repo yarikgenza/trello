@@ -16,7 +16,7 @@ export default class Form extends Component {
   }
 
   getToken(res) {
-    if(res === "Bad credentials") {
+    if(res === "Bad credentials" || res === "User not Found") {
       this.setState({
         notify: 'invalid'
       })
@@ -113,7 +113,11 @@ export default class Form extends Component {
        })
          .then((json) => {return json.json()})
          .then((res) => {this.getToken(res)})
-         .catch((e) => {console.log(e)})
+         .catch((e) => {
+           this.setState({
+             notify: 'invalid'
+           })
+         })
    }
 
 

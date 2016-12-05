@@ -45305,7 +45305,7 @@
 	  _createClass(Form, [{
 	    key: 'getToken',
 	    value: function getToken(res) {
-	      if (res === "Bad credentials") {
+	      if (res === "Bad credentials" || res === "User not Found") {
 	        this.setState({
 	          notify: 'invalid'
 	        });
@@ -45425,7 +45425,9 @@
 	      }).then(function (res) {
 	        _this4.getToken(res);
 	      }).catch(function (e) {
-	        console.log(e);
+	        _this4.setState({
+	          notify: 'invalid'
+	        });
 	      });
 	    }
 	  }, {
@@ -45872,7 +45874,7 @@
 	    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this));
 
 	    _this.state = {
-	      token: ''
+	      token: 'hjwdjhdjwhd'
 	    };
 	    return _this;
 	  }
@@ -45895,7 +45897,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'main' },
-	          _react2.default.createElement('rowRender', { token: this.state.token })
+	          _react2.default.createElement(_rowRender2.default, { token: this.state.token })
 	        )
 	      );
 	    }
@@ -46282,26 +46284,55 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var rowRender = function (_Component) {
-	  _inherits(rowRender, _Component);
+	var RowRender = function (_Component) {
+	  _inherits(RowRender, _Component);
 
-	  function rowRender() {
-	    _classCallCheck(this, rowRender);
+	  function RowRender() {
+	    _classCallCheck(this, RowRender);
 
-	    return _possibleConstructorReturn(this, (rowRender.__proto__ || Object.getPrototypeOf(rowRender)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (RowRender.__proto__ || Object.getPrototypeOf(RowRender)).call(this));
+
+	    _this.state = {
+	      dataReady: false,
+	      data: ''
+	    };
+	    return _this;
 	  }
 
-	  _createClass(rowRender, [{
+	  _createClass(RowRender, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var token = this.props.token;
+
+	      fetch('/api/task', {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json",
+	          "authorization": token
+	        }
+	      }).then(function (json) {
+	        return json.json();
+	      }).then(function (res) {
+	        console.log(res);
+	      }).catch(function (e) {
+	        console.log(e);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_Row2.default, null);
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'ROW HERE!!! '
+	      );
 	    }
 	  }]);
 
-	  return rowRender;
+	  return RowRender;
 	}(_react.Component);
 
-	exports.default = rowRender;
+	exports.default = RowRender;
 
 /***/ },
 /* 495 */
