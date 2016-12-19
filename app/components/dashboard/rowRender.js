@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Row from './Row.js'
+import Row from './Row.js';
+import AddRow from './AddRow.js'
 import {Popover, OverlayTrigger} from 'react-bootstrap';
 
 export default class RowRender extends Component {
@@ -8,7 +9,8 @@ export default class RowRender extends Component {
     super()
     this.state = {
       rows: '',
-      rowsReady: false
+      rowsReady: false,
+      modal: false
     }
   }
 
@@ -32,33 +34,47 @@ export default class RowRender extends Component {
       .catch((e) => {console.log(e)})
   }
 
+
+  addRow() {
+    console.log('clicked')
+  }
+
+  openModal() {
+    this.setState({
+      modal: true
+    })
+  }
+
+
   render() {
-    const {rows, rowsReady} = this.state;
+    const {rows, rowsReady, modal} = this.state;
 
 
     const popoverBottom = (
       <Popover id="popover-positioned-bottom" title="Welcome">
-        Let's add your first <strong>list </strong> :)
+        Lets add your first <strong>list </strong> :)
       </Popover>
     )
 
 
     if(!rowsReady) {
-      return (
-        <Row data={{message: 'waiting...'}} />
-      )
+      return null;
     } else if (rowsReady && rows.length !== 0) {
       return (
         <Row data={rows} />
       )
-   } else {
+    } else if(rowsReady && rows.length === 0 && modal === false) {
       return(
         <div className="addRow">
           <OverlayTrigger trigger="hover" placement="bottom" overlay={popoverBottom}>
-            <div className="addButton"></div>
+            <div className="addButton" onClick={this.openModal.bind(this)}></div>
           </OverlayTrigger>
         </div>
        )
+    } else {
+      return (
+        <AddRow submit={this.addRow.bind(this)} />
+      )
     }
 
   }
