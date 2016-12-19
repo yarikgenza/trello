@@ -15,6 +15,17 @@ export default class AuthPage extends Component{
     }
   }
 
+  componentWillMount() {
+    this.checkToken();
+  }
+
+  checkToken() {
+    let token = localStorage.getItem('token');
+    if(token) {
+      browserHistory.push('/dashboard');
+    }
+  }
+
   getToken(token) {
     localStorage.setItem('token', token);
     browserHistory.push('/dashboard');

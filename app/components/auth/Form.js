@@ -12,7 +12,13 @@ export default class Form extends Component {
       login: '',
       password: "",
       notify: ''
-    }
+    },
+    this.changeMode = this.changeMode.bind(this),
+    this.loginSubmit = this.loginSubmit.bind(this),
+    this.passwordChange = this.passwordChange.bind(this),
+    this.loginChange = this.loginChange.bind(this),
+    this.registerSubmit = this.registerSubmit.bind(this),
+    this.getToken = this.getToken.bind(this)
   }
 
   getToken(res) {
@@ -127,15 +133,15 @@ export default class Form extends Component {
     if(mode === 'login') {
       return(
        <div>
-         <Login changeMode={this.changeMode.bind(this)} loginSubmit={this.loginSubmit.bind(this)} passwordChange={this.passwordChange.bind(this)} loginChange={this.loginChange.bind(this)}/>
+         <Login changeMode={this.changeMode} loginSubmit={this.loginSubmit} passwordChange={this.passwordChange} loginChange={this.loginChange}/>
          <Notify status={this.state.notify} />
        </div>
       )
     } else {
       return (
         <div>
-          <Register changeMode={this.changeMode.bind(this)} registerSubmit={this.registerSubmit.bind(this)} passwordChange={this.passwordChange.bind(this)} loginChange={this.loginChange.bind(this)}/>
-          <Notify  changeMode={this.changeMode.bind(this)} status={this.state.notify} />
+          <Register changeMode={this.changeMode} registerSubmit={this.registerSubmit} passwordChange={this.passwordChange} loginChange={this.loginChange}/>
+          <Notify  changeMode={this.changeMode} status={this.state.notify} />
         </div>
       )
     }

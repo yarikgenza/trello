@@ -6,6 +6,10 @@ const TaskSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  row: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Row'
+  },
   completed: {type: Boolean, default: false}
 })
 

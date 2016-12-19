@@ -6,6 +6,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       {
@@ -15,6 +16,9 @@ module.exports = {
       {
         test: /\.less$/,
         loader: "style!css!less"
+      },
+      {
+        test: /\.png$/, loader: "url-loader?limit=100000"
       }
     ]
   }
