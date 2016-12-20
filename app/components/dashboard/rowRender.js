@@ -14,7 +14,7 @@ export default class RowRender extends Component {
     }
   }
 
-  componentDidMount() {
+  getRowList() {
     const token = this.props.token;
 
     fetch('/api/row', {
@@ -34,14 +34,44 @@ export default class RowRender extends Component {
       .catch((e) => {console.log(e)})
   }
 
+  addRow(name) {
+    const {token} = this.props;
 
-  addRow() {
-    console.log('clicked')
+    fetch('/api/row', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json",
+          "authorization": token
+        },
+        body: JSON.stringify({
+          name: name
+        })
+      })
+      .then((json) => {return json.json()})
+          .then((msg) => {
+            console.log(msg);
+            this.setState({
+              modal: false
+            })
+            this.getRowList();
+          })
+      .catch((e) => {console.log(e)})
+
+  }
+
+  componentDidMount() {
+    this.getRowList()
   }
 
   openModal() {
     this.setState({
       modal: true
+    })
+  }
+
+  closeModal() {
+    this.setState({
+      modal: false
     })
   }
 
@@ -60,9 +90,20 @@ export default class RowRender extends Component {
     if(!rowsReady) {
       return null;
     } else if (rowsReady && rows.length !== 0) {
-      return (
-        <Row data={rows} />
-      )
+
+        const parsedRows = rows.map((item, index) => {
+          return (
+            <Row key={index} data={item} />
+          )
+        })
+
+        return (
+          <div className="rowsContainer">
+            {parsedRows}
+          </div>
+        )
+
+
     } else if(rowsReady && rows.length === 0 && modal === false) {
       return(
         <div className="addRow">
@@ -73,7 +114,7 @@ export default class RowRender extends Component {
        )
     } else {
       return (
-        <AddRow submit={this.addRow.bind(this)} />
+        <AddRow close={this.closeModal.bind(this)} submit={this.addRow.bind(this)} />
       )
     }
 
