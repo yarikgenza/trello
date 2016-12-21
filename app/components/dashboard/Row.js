@@ -5,10 +5,26 @@ export default class Row extends Component {
   render() {
 
     const {data} = this.props;
-    console.table(data)
+    console.log(data);
 
     return(
-      <div>This is a row! and... {data._id}</div>
+      <div className="rowBox">
+        <div className="rowNameField">
+          <div className="rowName">
+            <p>{data.name}</p>
+          </div>
+        </div>
+        <div className="taskList">
+          <div className="card">
+            <div className="cardContent">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div className="rowForm">
+
+        </div>
+      </div>
     )
   }
 }
