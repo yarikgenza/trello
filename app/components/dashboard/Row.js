@@ -17,7 +17,7 @@ export default class Row extends Component {
         <div className="taskList">
           <div className="card">
             <div className="cardContent">
-              Create awesome project hhdg hdg h chgchgecghec e ce cjehcjh j
+              Create awesome project and publish it on GitHub
             </div>
           </div>
         </div>
