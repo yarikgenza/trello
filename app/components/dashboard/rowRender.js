@@ -89,7 +89,7 @@ export default class RowRender extends Component {
 
     if(!rowsReady) {
       return null;
-    } else if (rowsReady && rows.length !== 0) {
+    } else if (rowsReady && rows.length !== 0 && rows.length !== 4 && modal === false) {
 
         const parsedRows = rows.map((item, index) => {
           return (
@@ -100,10 +100,13 @@ export default class RowRender extends Component {
         return (
           <div className="rowsContainer">
             {parsedRows}
+            <div className="addRow notAlone">
+              <OverlayTrigger trigger="hover" placement="bottom" overlay={popoverBottom}>
+                <div className="addButton" onClick={this.openModal.bind(this)}></div>
+              </OverlayTrigger>
+            </div>
           </div>
         )
-
-
     } else if(rowsReady && rows.length === 0 && modal === false) {
       return(
         <div className="addRow">
@@ -112,7 +115,19 @@ export default class RowRender extends Component {
           </OverlayTrigger>
         </div>
        )
-    } else {
+    } else if(rowsReady && rows.length === 4) {
+      const parsedRows = rows.map((item, index) => {
+        return (
+          <Row key={index} data={item} />
+        )
+      })
+
+      return (
+        <div className="rowsContainer">
+          {parsedRows}
+        </div>
+      )
+    }  else {
       return (
         <AddRow close={this.closeModal.bind(this)} submit={this.addRow.bind(this)} />
       )
