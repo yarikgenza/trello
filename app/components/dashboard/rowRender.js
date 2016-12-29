@@ -101,9 +101,7 @@ export default class RowRender extends Component {
           <div className="rowsContainer">
             {parsedRows}
             <div className="addRow notAlone">
-              <OverlayTrigger trigger="hover" placement="bottom" overlay={popoverBottom}>
                 <div className="addButton" onClick={this.openModal.bind(this)}></div>
-              </OverlayTrigger>
             </div>
           </div>
         )
