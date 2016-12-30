@@ -6,15 +6,66 @@ export default class Row extends Component {
   constructor() {
     super();
     this.state = {
-      inputValue: ''
+      inputValue: '',
+      tasks: ''
     }
   }
+
+  componentWillMount() {
+    this.getTasks();
+  }
+
+  getTasks() {
+    const token = localStorage.getItem('token');
+    const {data} = this.props;
+
+    fetch('/api/task', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json",
+          "authorization": token
+        },
+        body: JSON.stringify({
+          row: data._id
+        })
+      })
+      .then((json) => {return json.json()})
+          .then((list) => {
+            this.setState({
+              tasks: list
+            })
+            console.log(list)
+          })
+      .catch((e) => {console.log(e)})
+  }
+
 
   formSubmit(e) {
     e.preventDefault();
     this.setState({
       inputValue: ''
     })
+
+    const token = localStorage.getItem('token');
+    const {inputValue} = this.state;
+    const {data} = this.props;
+
+    fetch('/api/task/add', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json",
+          "authorization": token
+        },
+        body: JSON.stringify({
+          content: inputValue,
+          row: data._id
+        })
+      })
+      .then((json) => {return json.json()})
+          .then((msg) => {
+            this.getTasks();
+          })
+      .catch((e) => {console.log(e)})
   }
 
   handleChange(e) {
@@ -23,7 +74,27 @@ export default class Row extends Component {
 
   render() {
 
+    const {tasks} = this.state;
     const {data} = this.props;
+
+    const getTasks = () => {
+      if(tasks.length !== 0) {
+        let parsedTasks = tasks.map((item, index) => {
+          return (
+            <div className="card">
+              <div className="cardContent">
+                {item.content}
+              </div>
+            </div>
+          )
+        })
+        return parsedTasks;
+      } else {
+        return null;
+      }
+    }
+
+
 
     return(
       <div className="rowBox">
@@ -33,11 +104,7 @@ export default class Row extends Component {
           </div>
         </div>
         <div className="taskList">
-          <div className="card">
-            <div className="cardContent">
-              Create awesome project and publish it on GitHub
-            </div>
-          </div>
+          {getTasks()}
         </div>
         <div className="rowForm">
           <form onSubmit={this.formSubmit.bind(this)}>

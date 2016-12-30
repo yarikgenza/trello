@@ -2,12 +2,13 @@ import Task from '../models/task.js';
 
 export const getList = async function(req, res, next) {
   const userId = req.user._id;
+  const {row} = req.body;
   let tasks;
 
   try {
     tasks = await Task.find({
-      postedBy: userId
-    }).populate('postedBy')
+      row: row
+    }).populate('row')
   } catch (e) {
     return next();
   }
