@@ -11,6 +11,13 @@ export default class Row extends Component {
     }
   }
 
+  componentDidUpdate() {
+      let elArr = document.getElementsByClassName("scrl");
+      for(let index of elArr) {
+        index.scrollTop += 9999
+      }
+  }
+
   componentWillMount() {
     this.getTasks();
   }
@@ -34,7 +41,6 @@ export default class Row extends Component {
             this.setState({
               tasks: list
             })
-            console.log(list)
           })
       .catch((e) => {console.log(e)})
   }
@@ -50,22 +56,24 @@ export default class Row extends Component {
     const {inputValue} = this.state;
     const {data} = this.props;
 
-    fetch('/api/task/add', {
-        method: 'post',
-        headers: {
-          "Content-type": "application/json",
-          "authorization": token
-        },
-        body: JSON.stringify({
-          content: inputValue,
-          row: data._id
-        })
-      })
-      .then((json) => {return json.json()})
-          .then((msg) => {
-            this.getTasks();
+    if(inputValue.length !== 0) {
+      fetch('/api/task/add', {
+          method: 'post',
+          headers: {
+            "Content-type": "application/json",
+            "authorization": token
+          },
+          body: JSON.stringify({
+            content: inputValue,
+            row: data._id
           })
-      .catch((e) => {console.log(e)})
+        })
+        .then((json) => {return json.json()})
+            .then((msg) => {
+              this.getTasks();
+            })
+        .catch((e) => {console.log(e)})
+    }
   }
 
   handleChange(e) {
@@ -81,7 +89,7 @@ export default class Row extends Component {
       if(tasks.length !== 0) {
         let parsedTasks = tasks.map((item, index) => {
           return (
-            <div className="card">
+            <div className="card" key={index}>
               <div className="cardContent">
                 {item.content}
               </div>
@@ -103,7 +111,7 @@ export default class Row extends Component {
             <p>{data.name}</p>
           </div>
         </div>
-        <div className="taskList">
+        <div className="taskList scrl">
           {getTasks()}
         </div>
         <div className="rowForm">
