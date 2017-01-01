@@ -10,7 +10,6 @@ export default class Card extends Component {
     }
   }
 
-
   deleteCard() {
     const token = localStorage.getItem('token');
     const {data} = this.props;
@@ -24,10 +23,30 @@ export default class Card extends Component {
       }
     })
       .then((res) => res.json())
-      .then((res) => {
-        this.switchOptions();
-        this.props.reRender();
-      })
+        .then((res) => {
+          this.switchOptions();
+          this.props.reRender();
+        })
+      .catch((e) => {console.log(e)})
+  }
+
+  completeTask() {
+    const token = localStorage.getItem('token');
+    const {data} = this.props;
+    const taskId = data._id;
+
+    fetch(`/api/task/complete/${taskId}`, {
+      method: 'get',
+      headers: {
+        'Content-type': 'application/json',
+        "authorization": token
+      }
+    })
+      .then((res) => res.json())
+        .then((res) => {
+          this.switchOptions();
+          this.props.reRender();
+        })
       .catch((e) => {console.log(e)})
   }
 
@@ -46,6 +65,57 @@ export default class Card extends Component {
     }
   }
 
+  // render - helpers functions
+
+  getEditedContent() {
+
+    const {data} = this.props;
+    const {options} = this.state;
+    const {completed} = data;
+
+    if (!completed) {
+      return (
+        <div className="cardContent">
+          {data.content}
+        </div>
+      )
+    } else {
+      return (
+        <div className="cardContent completed">
+          {data.content}
+        </div>
+      )
+    }
+  }
+
+  getOptions() {
+
+    const {data} = this.props;
+    const {options} = this.state;
+    const {completed} = data;
+
+    if (!completed) {
+      return (
+        <div className="cardOptions">
+          <div className="deleteCard" onClick={() => this.deleteCard()}>
+            <p>Delete</p>
+          </div>
+          <div className="completeCard" onClick={() => this.completeTask()}>
+            <p>Complete</p>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="cardOptions">
+          <div className="deleteCard fullWidth" onClick={() => this.deleteCard()}>
+            <p>Delete</p>
+          </div>
+        </div>
+      )
+    }
+  }
+
   render() {
 
     const {data} = this.props;
@@ -56,9 +126,7 @@ export default class Card extends Component {
       return (
         <div className="cardContainer">
           <div className="card" onClick={this.switchOptions.bind(this)}>
-            <div className="cardContent">
-              {data.content}
-            </div>
+            {this.getEditedContent()}
           </div>
         </div>
       )
@@ -70,14 +138,7 @@ export default class Card extends Component {
               {data.content}
             </div>
           </div>
-          <div className="cardOptions">
-            <div className="deleteCard" onClick={() => this.deleteCard()}>
-              <p>Delete</p>
-            </div>
-            <div className="completeCard">
-              <p>Complete</p>
-            </div>
-          </div>
+          {this.getOptions()}
         </div>
       )
     }
