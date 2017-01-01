@@ -1,6 +1,6 @@
 const config = {
   port: 9000,
-  database: 'localhost/trello',
+  database: 'localhost/trellotest',
   secret: 'secretword'
 }
 

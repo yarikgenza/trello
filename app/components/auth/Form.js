@@ -31,21 +31,6 @@ export default class Form extends Component {
     }
   }
 
-  handleEnter(e){
-    let key = e.which || e.keyCode;
-    if (key === 13) {
-      let {mode} = this.state;;
-      if(mode === "login") {
-        this.loginSubmit();
-      } else {
-        this.registerSubmit();
-      }
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener('keypress', (e) => {this.handleEnter(e)})
-  }
 
   changeMode() {
     const {mode} = this.state;

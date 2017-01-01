@@ -115,11 +115,12 @@ export default class Row extends Component {
           {getTasks()}
         </div>
         <div className="rowForm">
-          <form onSubmit={this.formSubmit.bind(this)}>
+          <form autoComplete="off" onSubmit={this.formSubmit.bind(this)}>
             <FormGroup controlId="formBasicText">
               <FormControl
                 type="text"
                 value={this.state.inputValue}
+
                 placeholder="Enter text"
                 onChange={this.handleChange.bind(this)}
               />
