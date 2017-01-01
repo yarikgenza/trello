@@ -1,5 +1,5 @@
 const config = {
-  port: 8000,
+  port: 7000,
   database: 'localhost/trellotest',
   secret: 'secretword'
 }

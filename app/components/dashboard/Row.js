@@ -23,6 +23,10 @@ export default class Row extends Component {
     this.getTasks();
   }
 
+  reRender() {
+    this.getTasks();
+  }
+
   getTasks() {
     const token = localStorage.getItem('token');
     const {data} = this.props;
@@ -110,7 +114,7 @@ export default class Row extends Component {
       if(tasks.length !== 0) {
         let parsedTasks = tasks.map((item, index) => {
           return (
-            <Card key={index} data={item} />
+            <Card reRender={this.reRender.bind(this)} key={index} data={item} />
           )
         })
         return parsedTasks;

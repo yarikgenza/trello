@@ -10,6 +10,28 @@ export default class Card extends Component {
     }
   }
 
+
+  deleteCard() {
+    const token = localStorage.getItem('token');
+    const {data} = this.props;
+    const taskId = data._id;
+
+    fetch(`/api/task/${taskId}`, {
+      method: 'delete',
+      headers: {
+        "Content-type": 'application/json',
+        "authorization": token
+      }
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.switchOptions();
+        this.props.reRender();
+      })
+      .catch((e) => {console.log(e)})
+  }
+
+
   switchOptions() {
     const {options} = this.state;
 
@@ -49,7 +71,7 @@ export default class Card extends Component {
             </div>
           </div>
           <div className="cardOptions">
-            <div className="deleteCard">
+            <div className="deleteCard" onClick={() => this.deleteCard()}>
               <p>Delete</p>
             </div>
             <div className="completeCard">
