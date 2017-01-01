@@ -45,6 +45,26 @@ export default class Row extends Component {
       .catch((e) => {console.log(e)})
   }
 
+  delRow() {
+    const token = localStorage.getItem('token');
+    const {data} = this.props;
+    const rowId = data._id;
+
+
+    fetch(`/api/row/${rowId}`, {
+      method: 'delete',
+      headers: {
+        "Content-type": "application/json",
+        "authorization": token
+      }
+    })
+    .then((res) => res.json())
+    .then((json) => {
+      this.props.reRender();
+    })
+    .catch((e) => {console.log(e)})
+  }
+
 
   formSubmit(e) {
     e.preventDefault();
@@ -103,13 +123,13 @@ export default class Row extends Component {
     }
 
 
-
     return(
       <div className="rowBox">
         <div className="rowNameField">
           <div className="rowName">
-            <p>{data.name}</p>
+            <p className="rowNameText">{data.name}</p>
           </div>
+          <div onClick={this.delRow.bind(this)} className="rowDel"></div>
         </div>
         <div className="taskList scrl">
           {getTasks()}
@@ -120,7 +140,6 @@ export default class Row extends Component {
               <FormControl
                 type="text"
                 value={this.state.inputValue}
-
                 placeholder="Enter text"
                 onChange={this.handleChange.bind(this)}
               />

@@ -34,6 +34,10 @@ export default class RowRender extends Component {
       .catch((e) => {console.log(e)})
   }
 
+  reRender() {
+    this.getRowList();
+  }
+
   addRow(name) {
     const {token} = this.props;
 
@@ -93,7 +97,7 @@ export default class RowRender extends Component {
 
         const parsedRows = rows.map((item, index) => {
           return (
-            <Row key={index} data={item} />
+            <Row reRender={this.reRender.bind(this)} key={index} data={item} />
           )
         })
 
@@ -116,7 +120,7 @@ export default class RowRender extends Component {
     } else if(rowsReady && rows.length === 4) {
       const parsedRows = rows.map((item, index) => {
         return (
-          <Row key={index} data={item} />
+          <Row reRender={this.reRender.bind(this)} key={index} data={item} />
         )
       })
 

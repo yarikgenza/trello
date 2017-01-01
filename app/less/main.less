@@ -216,6 +216,18 @@ html {
   background-color: @cName;
 }
 
+.rowDel {
+  width: 12%;
+  height: 100%;
+  cursor: pointer;
+  display: inline-block;
+  background: url('../img/cross.svg');
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: center;
+
+}
+
 .rowNameField {
   width: 100%;
   height: 10%;
@@ -226,15 +238,18 @@ html {
 
 .rowName {
   color: @asvalt;
+  display: inline-block;
   font-size: 25px;
-  width: 100%;
+  width: 83%;
   height: 100%;
   padding-top: 0.5vh;
   font-weight: 100;
   overflow-y: hidden;
   overflow-x: hidden;
 }
-
+.rowNameText {
+  padding-left: 12%;
+}
 .taskList {
   height: 82.2%;
   text-align: center;

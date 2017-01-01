@@ -36,6 +36,7 @@
     "less-loader": "^2.2.3",
     "morgan": "^1.7.0",
     "style-loader": "^0.13.1",
+    "svg-url-loader": "^1.1.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.3"
   }
