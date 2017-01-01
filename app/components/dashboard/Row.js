@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {FormGroup, FormControl} from 'react-bootstrap';
+import Card from './Card.js';
 
 export default class Row extends Component {
 
@@ -109,11 +110,7 @@ export default class Row extends Component {
       if(tasks.length !== 0) {
         let parsedTasks = tasks.map((item, index) => {
           return (
-            <div className="card" key={index}>
-              <div className="cardContent">
-                {item.content}
-              </div>
-            </div>
+            <Card key={index} data={item} />
           )
         })
         return parsedTasks;
