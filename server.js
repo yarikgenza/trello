@@ -12,6 +12,7 @@ const {port, database, secret} = config;
 import taskRoutes from './routes/task.js';
 import rowRoutes from './routes/row.js'
 import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js';
 import checkToken from './middlewares/checkToken.js';
 import getUser from './middlewares/getUser.js';
 import errorHandler from './middlewares/errorHandler.js';
@@ -35,6 +36,7 @@ app.use(morgan('tiny'));
 
 app.use('/api', authRoutes);
 app.use('/api', checkToken, getUser, rowRoutes);
+app.use('/api', checkToken, getUser, userRoutes);
 app.use('/api', checkToken, getUser, taskRoutes);
 
 app.listen(port, () => {

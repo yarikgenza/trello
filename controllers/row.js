@@ -14,7 +14,6 @@ export const getRows = async function (req, res, next) {
       status: 404
     })
   }
-  console.log(rows)
   res.json(rows);
 }
 

@@ -9,14 +9,12 @@ export const signup = async function(req, res, next) {
   try {
     user = await User.create(credentials)
   } catch ({message}) {
-    console.log(message)
     return next({
       status: 403,
       message: message
     })
   }
 
-  console.log(user)
   res.json(user)
 }
 

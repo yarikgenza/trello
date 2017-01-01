@@ -8,5 +8,4 @@ const RowSchema = new Schema({
   }
 })
 
-
 export default mongoose.model('Row', RowSchema);
