@@ -14,7 +14,6 @@
     "new-cap": 0,
     "indent": [2, 2],
     "semi": 0,
-    "comma-spacing": 0,
     "comma-dangle": [1, "never"],
     "no-else-return": 0,
     "no-unused-vars": 1

@@ -2,7 +2,7 @@ import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
-export const signup = async function(req, res, next) {
+export const signup = async function (req, res, next) {
   const credentials = req.body;
   let user;
 
@@ -11,20 +11,20 @@ export const signup = async function(req, res, next) {
   } catch ({message}) {
     return next({
       status: 403,
-      message: message
+      message
     })
   }
 
   res.json(user)
 }
 
-export const signin = async function(req, res, next) {
+export const signin = async function (req, res, next) {
   const {login, password} = req.body;
   const user = await User.findOne({login});
 
-  if(!user) {
+  if (!user) {
     return next({
-      status:  403,
+      status: 403,
       message: 'User not Found'
     })
   }
@@ -40,5 +40,4 @@ export const signin = async function(req, res, next) {
 
   const token = jwt.sign({_id: user._id}, config.secret);
   res.json(token);
-
 }

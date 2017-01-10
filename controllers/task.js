@@ -1,13 +1,13 @@
 import Task from '../models/task.js';
 
-export const getList = async function(req, res, next) {
+export const getList = async function (req, res, next) {
   const userId = req.user._id;
   const {row} = req.body;
   let tasks;
 
   try {
     tasks = await Task.find({
-      row: row
+      row
     }).populate('row')
   } catch (e) {
     return next();
@@ -16,7 +16,7 @@ export const getList = async function(req, res, next) {
   res.json(tasks);
 }
 
-export const addTask = async function(req, res, next) {
+export const addTask = async function (req, res, next) {
   const taskObj = req.body;
   const userId = req.user._id
   taskObj.postedBy = userId;
@@ -27,14 +27,14 @@ export const addTask = async function(req, res, next) {
   } catch ({message}) {
     return next({
       status: 500,
-      message: message
+      message
     })
   }
 
   res.json(task);
 }
 
-export const getTask = async function(req, res, next) {
+export const getTask = async function (req, res, next) {
   const taskId = req.params.id;
   const userId = req.user._id;
   let task;
@@ -54,7 +54,7 @@ export const getTask = async function(req, res, next) {
   res.json(task);
 }
 
-export const delTask = async function(req, res, next) {
+export const delTask = async function (req, res, next) {
   const taskId = req.params.id;
   const userId = req.user._id;
 
@@ -65,7 +65,7 @@ export const delTask = async function(req, res, next) {
     }).populate('postedBy')
   } catch ({message}) {
     return next({
-      message: message
+      message
     })
   }
 
@@ -76,16 +76,16 @@ export const delTask = async function(req, res, next) {
     })
 }
 
-export const completeTask = async function(req, res, next) {
+export const completeTask = async function (req, res, next) {
   const taskId = req.params.id;
   const userId = req.user._id;
 
-  let task = await Task.findOne({
+  const task = await Task.findOne({
     _id: taskId,
     postedBy: userId
   }).populate('postedBy')
 
-  if(!task) {
+  if (!task) {
     return next({
       status: 403,
       message: 'Task not found'
@@ -97,7 +97,7 @@ export const completeTask = async function(req, res, next) {
     task.save();
   } catch ({message}) {
     return next({
-      message:message
+      message
     })
   }
 

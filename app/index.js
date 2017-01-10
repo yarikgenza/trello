@@ -22,5 +22,5 @@ ReactDOM.render((
     <Route path="/" component={AuthPage} />
     <Route path="/dashboard" component={Dashboard} />
   </Router>
- ),document.getElementById('root')
+ ), document.getElementById('root')
 )

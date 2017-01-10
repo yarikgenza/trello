@@ -1,4 +1,4 @@
-import express, {Router} from 'express';
+import {Router} from 'express';
 import * as rowController from '../controllers/row';
 
 const router = Router();

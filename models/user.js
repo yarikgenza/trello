@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   password: String
 })
 
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next();
   }
@@ -19,7 +19,7 @@ UserSchema.pre('save', async function(next) {
 })
 
 
-UserSchema.methods.comparePassword = function(password) {
+UserSchema.methods.comparePassword = function (password) {
   return bcrypt.compare(password, this.password)
 }
 

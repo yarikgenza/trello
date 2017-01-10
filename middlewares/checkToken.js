@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 
 export default function (req, res, next) {
-  const token = req.headers['authorization'];
+  const token = req.headers.authorization;
 
   if (!token) {
     return next({

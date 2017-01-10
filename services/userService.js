@@ -1,7 +1,6 @@
-import jwb from 'jsonwebtoken';
-import User from '../models/user.js';
+import User from '../models/user';
 
-export const getUserByToken = async function(token) {
+export const getUserByToken = async function (token) {
   const { _id } = token;
   let user;
 

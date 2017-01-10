@@ -6,7 +6,7 @@ export const getRows = async function (req, res, next) {
 
   try {
     rows = await Row.find({
-      userId: userId
+      userId
     }).populate('userId')
   } catch ({message}) {
     return next({
@@ -17,7 +17,7 @@ export const getRows = async function (req, res, next) {
   res.json(rows);
 }
 
-export const addRow = async function(req, res, next) {
+export const addRow = async function (req, res, next) {
   const rowObj = req.body;
   const userId = req.user._id;
   rowObj.userId = userId;
@@ -28,7 +28,7 @@ export const addRow = async function(req, res, next) {
   } catch ({message}) {
     return next({
       status: 403,
-      message: message
+      message
     })
   }
 
@@ -36,18 +36,18 @@ export const addRow = async function(req, res, next) {
 }
 
 
-export const delRow = async function(req, res, next) {
+export const delRow = async function (req, res, next) {
   const rowId = req.params.id;
   const userId = req.user._id;
 
   try {
     await Row.remove({
       _id: rowId,
-      userId: userId
+      userId
     }).populate('userId')
   } catch ({message}) {
     return next({
-      message: message
+      message
     })
   }
 
