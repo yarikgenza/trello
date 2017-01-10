@@ -1,4 +1,4 @@
-import React, {Component}from 'react';
+import React, {Component} from 'react';
 import Header from '../layout/Header';
 import RowRender from './rowRender';
 
@@ -12,14 +12,14 @@ export default class Dashboard extends Component {
   }
 
   componentWillMount() {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     this.setState({
-      token: token
+      token
     })
   }
 
   render() {
-    return(
+    return (
       <div id="dashboardContainer">
         <Header />
         <div className="main">

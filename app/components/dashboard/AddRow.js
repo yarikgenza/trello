@@ -4,7 +4,7 @@ import {Modal, closeButton, Button, Form, FormControl, FormGroup, ControlLabel, 
 
 export default class AddRow extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       modal: true,
@@ -33,14 +33,14 @@ export default class AddRow extends Component {
   render() {
     const {modal} = this.state;
 
-    return(
+    return (
       <Modal show={modal} dialogClassName="add-row-modal" onHide={this.close.bind(this)}>
         <Modal.Header closeButton>
           <Modal.Title>Add new List</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={(e) => {e.preventDefault(); this.submit()}} horizontal>
+          <Form onSubmit={(e) => { e.preventDefault(); this.submit() }} horizontal>
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={2}>
                 Name
@@ -53,7 +53,7 @@ export default class AddRow extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button bsStyle='primary' onClick={this.submit.bind(this)}>Submit</Button>
+          <Button bsStyle="primary" onClick={this.submit.bind(this)}>Submit</Button>
           <Button onClick={this.close.bind(this)}>Close</Button>
         </Modal.Footer>
       </Modal>

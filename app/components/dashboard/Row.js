@@ -13,10 +13,10 @@ export default class Row extends Component {
   }
 
   componentDidUpdate() {
-      let elArr = document.getElementsByClassName("scrl");
-      for(let index of elArr) {
-        index.scrollTop += 9999
-      }
+    const elArr = document.getElementsByClassName('scrl');
+    for (const index of elArr) {
+      index.scrollTop += 9999
+    }
   }
 
   componentWillMount() {
@@ -32,22 +32,22 @@ export default class Row extends Component {
     const {data} = this.props;
 
     fetch('/api/task', {
-        method: 'post',
-        headers: {
-          "Content-type": "application/json",
-          "authorization": token
-        },
-        body: JSON.stringify({
-          row: data._id
-        })
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: token
+      },
+      body: JSON.stringify({
+        row: data._id
       })
-      .then((json) => {return json.json()})
+    })
+      .then(json => json.json())
           .then((list) => {
             this.setState({
               tasks: list
             })
           })
-      .catch((e) => {console.log(e)})
+      .catch((e) => { console.log(e) })
   }
 
   delRow() {
@@ -59,15 +59,15 @@ export default class Row extends Component {
     fetch(`/api/row/${rowId}`, {
       method: 'delete',
       headers: {
-        "Content-type": "application/json",
-        "authorization": token
+        'Content-type': 'application/json',
+        authorization: token
       }
     })
-    .then((res) => res.json())
+    .then(res => res.json())
     .then((json) => {
       this.props.reRender();
     })
-    .catch((e) => {console.log(e)})
+    .catch((e) => { console.log(e) })
   }
 
 
@@ -81,23 +81,23 @@ export default class Row extends Component {
     const {inputValue} = this.state;
     const {data} = this.props;
 
-    if(inputValue.length !== 0) {
+    if (inputValue.length !== 0) {
       fetch('/api/task/add', {
-          method: 'post',
-          headers: {
-            "Content-type": "application/json",
-            "authorization": token
-          },
-          body: JSON.stringify({
-            content: inputValue,
-            row: data._id
-          })
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json',
+          authorization: token
+        },
+        body: JSON.stringify({
+          content: inputValue,
+          row: data._id
         })
-        .then((json) => {return json.json()})
+      })
+        .then(json => json.json())
             .then((msg) => {
               this.getTasks();
             })
-        .catch((e) => {console.log(e)})
+        .catch((e) => { console.log(e) })
     }
   }
 
@@ -106,17 +106,14 @@ export default class Row extends Component {
   }
 
   render() {
-
     const {tasks} = this.state;
     const {data} = this.props;
 
     const getTasks = () => {
-      if(tasks.length !== 0) {
-        let parsedTasks = tasks.map((item, index) => {
-          return (
-            <Card reRender={this.reRender.bind(this)} key={index} data={item} />
-          )
-        })
+      if (tasks.length !== 0) {
+        const parsedTasks = tasks.map((item, index) => (
+          <Card reRender={this.reRender.bind(this)} key={index} data={item} />
+          ))
         return parsedTasks;
       } else {
         return null;
@@ -124,13 +121,13 @@ export default class Row extends Component {
     }
 
 
-    return(
+    return (
       <div className="rowBox">
         <div className="rowNameField">
           <div className="rowName">
             <p className="rowNameText">{data.name}</p>
           </div>
-          <div onClick={this.delRow.bind(this)} className="rowDel"></div>
+          <div onClick={this.delRow.bind(this)} className="rowDel" />
         </div>
         <div className="taskList scrl">
           {getTasks()}
@@ -142,9 +139,8 @@ export default class Row extends Component {
                 type="text"
                 value={this.state.inputValue}
                 placeholder="Enter text"
-                onChange={this.handleChange.bind(this)}
-              />
-            <FormControl.Feedback />
+                onChange={this.handleChange.bind(this)} />
+              <FormControl.Feedback />
             </FormGroup>
           </form>
         </div>

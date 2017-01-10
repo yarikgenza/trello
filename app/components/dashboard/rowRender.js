@@ -18,20 +18,20 @@ export default class RowRender extends Component {
     const token = this.props.token;
 
     fetch('/api/row', {
-        method: 'get',
-        headers: {
-          "Content-type": "application/json",
-          "authorization": token
-        }
-      })
-      .then((json) => {return json.json()})
+      method: 'get',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: token
+      }
+    })
+      .then(json => json.json())
           .then((rows) => {
             this.setState({
-              rows: rows,
+              rows,
               rowsReady: true
             })
           })
-      .catch((e) => {console.log(e)})
+      .catch((e) => { console.log(e) })
   }
 
   reRender() {
@@ -42,16 +42,16 @@ export default class RowRender extends Component {
     const {token} = this.props;
 
     fetch('/api/row', {
-        method: 'post',
-        headers: {
-          "Content-type": "application/json",
-          "authorization": token
-        },
-        body: JSON.stringify({
-          name: name
-        })
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: token
+      },
+      body: JSON.stringify({
+        name
       })
-      .then((json) => {return json.json()})
+    })
+      .then(json => json.json())
           .then((msg) => {
             console.log(msg);
             this.setState({
@@ -59,8 +59,7 @@ export default class RowRender extends Component {
             })
             this.getRowList();
           })
-      .catch((e) => {console.log(e)})
-
+      .catch((e) => { console.log(e) })
   }
 
   componentDidMount() {
@@ -91,49 +90,43 @@ export default class RowRender extends Component {
     )
 
 
-    if(!rowsReady) {
+    if (!rowsReady) {
       return null;
     } else if (rowsReady && rows.length !== 0 && rows.length !== 4 && modal === false) {
+      const parsedRows = rows.map((item, index) => (
+        <Row reRender={this.reRender.bind(this)} key={index} data={item} />
+          ))
 
-        const parsedRows = rows.map((item, index) => {
-          return (
-            <Row reRender={this.reRender.bind(this)} key={index} data={item} />
-          )
-        })
-
-        return (
-          <div className="rowsContainer">
-            {parsedRows}
-            <div className="addRow notAlone">
-                <div className="addButton" onClick={this.openModal.bind(this)}></div>
-            </div>
+      return (
+        <div className="rowsContainer">
+          {parsedRows}
+          <div className="addRow notAlone">
+            <div className="addButton" onClick={this.openModal.bind(this)} />
           </div>
-        )
-    } else if(rowsReady && rows.length === 0 && modal === false) {
-      return(
+        </div>
+      )
+    } else if (rowsReady && rows.length === 0 && modal === false) {
+      return (
         <div className="addRow">
           <OverlayTrigger trigger="hover" placement="bottom" overlay={popoverBottom}>
-            <div className="addButton" onClick={this.openModal.bind(this)}></div>
+            <div className="addButton" onClick={this.openModal.bind(this)} />
           </OverlayTrigger>
         </div>
-       )
-    } else if(rowsReady && rows.length === 4) {
-      const parsedRows = rows.map((item, index) => {
-        return (
-          <Row reRender={this.reRender.bind(this)} key={index} data={item} />
-        )
-      })
+      )
+    } else if (rowsReady && rows.length === 4) {
+      const parsedRows = rows.map((item, index) => (
+        <Row reRender={this.reRender.bind(this)} key={index} data={item} />
+        ))
 
       return (
         <div className="rowsContainer">
           {parsedRows}
         </div>
       )
-    }  else {
+    } else {
       return (
         <AddRow close={this.closeModal.bind(this)} submit={this.addRow.bind(this)} />
       )
     }
-
   }
 }

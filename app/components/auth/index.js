@@ -5,7 +5,7 @@ import Header from '../layout/Header';
 import { browserHistory } from 'react-router'
 import Form from './Form';
 
-export default class AuthPage extends Component{
+export default class AuthPage extends Component {
 
   constructor() {
     super();
@@ -20,8 +20,8 @@ export default class AuthPage extends Component{
   }
 
   checkToken() {
-    let token = localStorage.getItem('token');
-    if(token) {
+    const token = localStorage.getItem('token');
+    if (token) {
       browserHistory.push('/dashboard');
     }
   }
@@ -31,10 +31,10 @@ export default class AuthPage extends Component{
     browserHistory.push('/dashboard');
   }
   render() {
-    return(
-      <div className='authContainer'>
+    return (
+      <div className="authContainer">
         <Header />
-        <Form getToken={this.getToken.bind(this)}/>
+        <Form getToken={this.getToken.bind(this)} />
       </div>
     )
   }

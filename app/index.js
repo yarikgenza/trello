@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
-//components for routes
+// components for routes
 import AuthPage from './components/auth/index.js';
 import Dashboard from './components/dashboard/index.js';
 
-//less
+// less
 require('./less/main.less');
 
 class NoMatch extends Component {
   render() {
-    return(
+    return (
       <div>Not found (404)</div>
     )
   }
@@ -19,8 +19,8 @@ class NoMatch extends Component {
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path="/" component={AuthPage}></Route>
-    <Route path="/dashboard" component={Dashboard}/>
+    <Route path="/" component={AuthPage} />
+    <Route path="/dashboard" component={Dashboard} />
   </Router>
  ),document.getElementById('root')
 )

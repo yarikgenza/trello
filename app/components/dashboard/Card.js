@@ -18,16 +18,16 @@ export default class Card extends Component {
     fetch(`/api/task/${taskId}`, {
       method: 'delete',
       headers: {
-        "Content-type": 'application/json',
-        "authorization": token
+        'Content-type': 'application/json',
+        authorization: token
       }
     })
-      .then((res) => res.json())
+      .then(res => res.json())
         .then((res) => {
           this.switchOptions();
           this.props.reRender();
         })
-      .catch((e) => {console.log(e)})
+      .catch((e) => { console.log(e) })
   }
 
   completeTask() {
@@ -39,22 +39,22 @@ export default class Card extends Component {
       method: 'get',
       headers: {
         'Content-type': 'application/json',
-        "authorization": token
+        authorization: token
       }
     })
-      .then((res) => res.json())
+      .then(res => res.json())
         .then((res) => {
           this.switchOptions();
           this.props.reRender();
         })
-      .catch((e) => {console.log(e)})
+      .catch((e) => { console.log(e) })
   }
 
 
   switchOptions() {
     const {options} = this.state;
 
-    if(!options) {
+    if (!options) {
       this.setState({
         options: true
       })
@@ -68,7 +68,6 @@ export default class Card extends Component {
   // render - helpers functions
 
   getEditedContent() {
-
     const {data} = this.props;
     const {options} = this.state;
     const {completed} = data;
@@ -89,7 +88,6 @@ export default class Card extends Component {
   }
 
   getOptions() {
-
     const {data} = this.props;
     const {options} = this.state;
     const {completed} = data;
@@ -117,7 +115,6 @@ export default class Card extends Component {
   }
 
   render() {
-
     const {data} = this.props;
     const {options} = this.state;
 

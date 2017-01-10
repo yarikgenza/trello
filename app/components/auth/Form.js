@@ -10,7 +10,7 @@ export default class Form extends Component {
     this.state = {
       mode: 'login',
       login: '',
-      password: "",
+      password: '',
       notify: ''
     },
     this.changeMode = this.changeMode.bind(this),
@@ -22,7 +22,7 @@ export default class Form extends Component {
   }
 
   getToken(res) {
-    if(res === "Bad credentials" || res === "User not Found") {
+    if (res === 'Bad credentials' || res === 'User not Found') {
       this.setState({
         notify: 'invalid'
       })
@@ -34,7 +34,7 @@ export default class Form extends Component {
 
   changeMode() {
     const {mode} = this.state;
-    if(mode === "login") {
+    if (mode === 'login') {
       this.setState({
         mode: 'register'
       })
@@ -58,21 +58,21 @@ export default class Form extends Component {
   }
 
   registerSubmit(e) {
-    if(e) {
+    if (e) {
       e.preventDefault();
     }
     const {login, password} = this.state;
 
     fetch('/api/signup', {
-        method: 'post',
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-          login: login,
-          password: password
-        })
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        login,
+        password
       })
+    })
         .then((json) => {
           this.setState({
             notify: 'regOk',
@@ -86,47 +86,47 @@ export default class Form extends Component {
         })
   }
 
-   loginSubmit(e) {
-     if(e) {
-       e.preventDefault();
-     }
-     const {login, password} = this.state;
+  loginSubmit(e) {
+    if (e) {
+      e.preventDefault();
+    }
+    const {login, password} = this.state;
 
-     fetch('/api/signin', {
-         method: 'post',
-         headers: {
-           "Content-type": "application/json"
-         },
-         body: JSON.stringify({
-           login: login,
-           password: password
-         })
-       })
-         .then((json) => {return json.json()})
-         .then((res) => {this.getToken(res)})
+    fetch('/api/signin', {
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        login,
+        password
+      })
+    })
+         .then(json => json.json())
+         .then((res) => { this.getToken(res) })
          .catch((e) => {
            this.setState({
              notify: 'invalid'
            })
          })
-   }
+  }
 
 
   render() {
     const {mode} = this.state;
 
-    if(mode === 'login') {
-      return(
-       <div>
-         <Login changeMode={this.changeMode} loginSubmit={this.loginSubmit} passwordChange={this.passwordChange} loginChange={this.loginChange}/>
-         <Notify status={this.state.notify} />
-       </div>
+    if (mode === 'login') {
+      return (
+        <div>
+          <Login changeMode={this.changeMode} loginSubmit={this.loginSubmit} passwordChange={this.passwordChange} loginChange={this.loginChange} />
+          <Notify status={this.state.notify} />
+        </div>
       )
     } else {
       return (
         <div>
-          <Register changeMode={this.changeMode} registerSubmit={this.registerSubmit} passwordChange={this.passwordChange} loginChange={this.loginChange}/>
-          <Notify  changeMode={this.changeMode} status={this.state.notify} />
+          <Register changeMode={this.changeMode} registerSubmit={this.registerSubmit} passwordChange={this.passwordChange} loginChange={this.loginChange} />
+          <Notify changeMode={this.changeMode} status={this.state.notify} />
         </div>
       )
     }
